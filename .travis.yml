@@ -1,0 +1,10 @@
+language: java
+
+script:
+  - mvn clean test
+
+addons:
+  browserstack:
+    username: "dimazasuha1"
+    access_key: "FjKjiV8QKrmHpjuxQVpG"
+    app_path: "bs://b02755ccf4384499c8dd6a7471b24580d025af6f"

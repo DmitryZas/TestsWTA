@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class DriverFacade {
-    private AndroidDriver<AndroidElement> driver = null;
+    public AndroidDriver<AndroidElement> driver = null;
 
     public DriverFacade() {
         try {
@@ -42,7 +42,7 @@ public class DriverFacade {
             caps.setCapability("noReset", "true");
 
             // Specify device and os_version for testing
-            caps.setCapability("device", "Google Pixel 3");
+            caps.setCapability("device", "Samsung Galaxy S10e");
             caps.setCapability("os_version", "9.0");
 
             // Set other BrowserStack capabilities
@@ -98,26 +98,24 @@ public class DriverFacade {
         }
     }
 
-    public void chooseCourse (String locator) throws InterruptedException {
-        Thread.sleep(5000);
+    public void chooseCourse (String locator) {
         List<AndroidElement> course = driver.findElementsByClassName(locator);
         course.get(4).click();
     }
 
-    public void chooseTheme (String locator) throws InterruptedException {
-        Thread.sleep(5000);
+    public void chooseTheme (String locator, int themeId) {
         List<AndroidElement> course = driver.findElementsById(locator);
-        course.get(4).click();
+        course.get(themeId).click();
     }
 
-    public void getContext() throws InterruptedException {
-        Thread.sleep(5000);
+    public void getContext() {
+        wait(5);
         Set<String> contextNames = driver.getContextHandles();
         System.out.println(contextNames);
     }
 
-    public void tapElement (By locator)
-    {
-        driver.findElement(locator).click();
+    public void tapElement (By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, 25);
+        wait.until(ExpectedConditions.presenceOfElementLocated(locator)).click();
     }
  }
