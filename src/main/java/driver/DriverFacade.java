@@ -35,6 +35,7 @@ public class DriverFacade {
             // Set your access credentials
             caps.setCapability("browserstack.user", "dimazasuha1");
             caps.setCapability("browserstack.key", "FjKjiV8QKrmHpjuxQVpG");
+            caps.setCapability("browserstack.local", "true");
 
             // Set URL of the application under test
             caps.setCapability("app", "bs://b02755ccf4384499c8dd6a7471b24580d025af6f");
