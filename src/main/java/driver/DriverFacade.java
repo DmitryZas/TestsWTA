@@ -27,8 +27,8 @@ public class DriverFacade {
             caps.setCapability(MobileCapabilityType.DEVICE_NAME, "8524e42f7d94");
             //caps.setCapability("appPackage", "wta.com.picatrebax");
             caps.setCapability("appWaitActivity", "wta.com.picatrebax.activity.AuthActivity");
-            caps.setCapability("noReset", "true");
-            caps.setCapability(MobileCapabilityType.APP, "/home/dmytro/Desktop/app-UIdebug.apk");
+            //caps.setCapability("noReset", "true");
+            caps.setCapability(MobileCapabilityType.APP, "/home/dmytro/Desktop/app-debug.apk");
             //caps.setCapability("autoAcceptAlerts", true);
             caps.setCapability("autoGrantPermissions", "true");
 
@@ -85,6 +85,13 @@ public class DriverFacade {
         element.click();
     }
 
+    public void checkButton() {
+        MobileElement element = driver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().scrollable(true))" +
+                        ".scrollIntoView(new UiSelector().textContains(\"CHECK\"));"));
+        element.click();
+    }
+
     public void wait(int seconds) {
         driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
     }
@@ -101,29 +108,35 @@ public class DriverFacade {
 
     public void chooseCourse (By locator) {
         try {
+            wait(2);
             WebDriverWait wait = new WebDriverWait(driver, 25);
             wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator)).get(4).click();
-            /*wait(5);
-            List<AndroidElement> course = driver.findElementsByClassName(locator);
-            course.get(4).click();*/
         } catch (Exception e) {
-            System.out.println("Locator can not be found");
+            System.out.println("Locator of the course can not be found");
             System.out.println(e.getMessage());
         }
+    }
 
-
+    public void chooseImageAnswer (By locator) {
+        try {
+            wait(2);
+            WebDriverWait wait = new WebDriverWait(driver, 25);
+            wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator)).get(0).click();
+        } catch (Exception e) {
+            System.out.println("Locator of the course can not be found");
+            System.out.println(e.getMessage());
+        }
     }
 
     public void chooseTheme (By locator, int themeId) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, 25);
             wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator)).get(themeId).click();
+            System.out.println(locator);
         } catch (Exception e) {
             System.out.println("Locator can not be found");
             System.out.println(e.getMessage());
         }
-      /*  List<AndroidElement> course = driver.findElementsById(locator);
-        course.get(themeId).click();*/
     }
 
     public void getContext() {
@@ -136,4 +149,4 @@ public class DriverFacade {
         WebDriverWait wait = new WebDriverWait(driver, 25);
         wait.until(ExpectedConditions.presenceOfElementLocated(locator)).click();
     }
- }
+}
