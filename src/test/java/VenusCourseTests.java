@@ -2,6 +2,7 @@ import driver.DriverFacade;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import selectors.AuthPage;
 import selectors.QuestionPage;
 
@@ -22,7 +23,7 @@ public class VenusCourseTests {
         driver.tapElement(auth.googleSignInButton);
         driver.tapElement(auth.nextButtonTutorial);
         driver.tapElement(auth.skipButtonTutorial);
-        driver.chooseCourse(question.course);
+        driver.chooseElement(question.course, 4);
         driver.tapElement(question.startCourseButton);
 
         /*driver.chooseTheme(question.theme, 0);
@@ -73,8 +74,9 @@ public class VenusCourseTests {
         driver.tapElement(question.checkButton);
         driver.tapNextTheoryButton();*/
 
-        driver.chooseTheme(question.theme, 3);
+        driver.chooseElement(question.theme, 3);
         driver.tapNextTheoryButton();
+
         driver.tapElement(question.answerA);
         driver.tapElement(question.answer1);
         driver.tapElement(question.answerB);
@@ -83,30 +85,29 @@ public class VenusCourseTests {
         driver.tapElement(question.answer3);
         driver.tapElement(question.answerD);
         driver.tapElement(question.answer4);
+
         driver.wait(2);
         driver.checkButton();
-        for (int i = 0; i < 6; i++){
-            driver.tapNextTheoryButton();
-        }
+        driver.tapElement(question.navbarNextButton);
         driver.tapElement(question.firstAnswer);
-        driver.tapElement(question.nextButton);
+        driver.tapNextTheoryButton();
         driver.tapNextTheoryButton();
         driver.tapElement(question.secondAnswer);
-        driver.tapElement(question.nextButton);
         driver.tapNextTheoryButton();
-        //driver.tapElement(question.firstImage);
-        driver.chooseTheme(question.theme, 8);
+        driver.tapNextTheoryButton();
+        driver.chooseImageAnswer(question.imageAnswer, 0);
         driver.tapElement(question.checkButton);
-        driver.tapNextTheoryButton();
+        driver.wait(5);
+        driver.tapElement(question.navbarNextButton);
 
-        driver.chooseTheme(question.theme, 4);
+        driver.wait(2);
+        driver.chooseElement(question.theme, 4);
         driver.tapNextTheoryButton();
         driver.tapElement(question.secondAnswer);
         driver.tapElement(question.thirdAnswer);
+        driver.wait(2);
         driver.tapElement(question.checkButton);
-        for (int i = 0; i < 5; i++){
-            driver.tapNextTheoryButton();
-        }
+        driver.tapElement(question.navbarNextButton);
         driver.tapElement(question.secondAnswer);
         driver.tapElement(question.fourthAnswer);
         driver.tapElement(question.checkButton);
@@ -114,7 +115,7 @@ public class VenusCourseTests {
         driver.tapElement(question.trueAnswer);
         driver.tapNextTheoryButton();
         driver.tapElement(question.falseAnswer);
-        driver.tapNextTheoryButton();
+        driver.tapElement(question.navbarNextButton);
 
 
 

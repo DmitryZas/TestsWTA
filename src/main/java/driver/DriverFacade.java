@@ -24,16 +24,16 @@ public class DriverFacade {
         try {
             DesiredCapabilities caps = new DesiredCapabilities();
             //Local device
-            caps.setCapability(MobileCapabilityType.DEVICE_NAME, "8524e42f7d94");
-            //caps.setCapability("appPackage", "wta.com.picatrebax");
+            caps.setCapability(MobileCapabilityType.DEVICE_NAME, "N0AA003761K70700091");
+            caps.setCapability("appPackage", "wta.com.picatrebax");
             caps.setCapability("appWaitActivity", "wta.com.picatrebax.activity.AuthActivity");
             //caps.setCapability("noReset", "true");
             caps.setCapability(MobileCapabilityType.APP, "/home/dmytro/Desktop/app-debug.apk");
             //caps.setCapability("autoAcceptAlerts", true);
-            caps.setCapability("autoGrantPermissions", "true");
+            //caps.setCapability("autoGrantPermissions", "true");
 
-            /*//Browserstack
-            // Set your access credentials
+            //Browserstack
+            /*// Set your access credentials
             caps.setCapability("browserstack.user", "dimazasuha1");
             caps.setCapability("browserstack.key", "FjKjiV8QKrmHpjuxQVpG");
 
@@ -53,8 +53,8 @@ public class DriverFacade {
 
             // Set credentials for Google Authorization
             HashMap<String, String> passportsAndNames = new HashMap<>();
-            passportsAndNames.put("username", "testforwta@gmail.com");
-            passportsAndNames.put("password", "QWE123qwe!");
+            passportsAndNames.put("username", "dmitry.zasuha@gmail.com");
+            passportsAndNames.put("password", "18111990");
             caps.setCapability("browserstack.appStoreConfiguration", passportsAndNames);*/
 
             //Initiate Driver
@@ -81,14 +81,14 @@ public class DriverFacade {
     public void tapNextTheoryButton() {
         MobileElement element = driver.findElement(MobileBy.AndroidUIAutomator(
                 "new UiScrollable(new UiSelector().scrollable(true))" +
-                        ".scrollIntoView(new UiSelector().resourceIdMatches(\".*wta.com.picatrebax:id/next.*\"))"));
+                        ".scrollIntoView(new UiSelector().textContains(\"NEXT\"))"));
         element.click();
     }
 
     public void checkButton() {
         MobileElement element = driver.findElement(MobileBy.AndroidUIAutomator(
                 "new UiScrollable(new UiSelector().scrollable(true))" +
-                        ".scrollIntoView(new UiSelector().textContains(\"CHECK\"));"));
+                        ".scrollIntoView(new UiSelector().textContains(\"Check\"));"));
         element.click();
     }
 
@@ -108,7 +108,6 @@ public class DriverFacade {
 
     public void chooseCourse (By locator) {
         try {
-            wait(2);
             WebDriverWait wait = new WebDriverWait(driver, 25);
             wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator)).get(4).click();
         } catch (Exception e) {
@@ -117,18 +116,18 @@ public class DriverFacade {
         }
     }
 
-    public void chooseImageAnswer (By locator) {
+    public void chooseElement (By locator, int themeId) {
         try {
-            wait(2);
             WebDriverWait wait = new WebDriverWait(driver, 25);
-            wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator)).get(0).click();
+            wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator)).get(themeId).click();
+            System.out.println(locator);
         } catch (Exception e) {
-            System.out.println("Locator of the course can not be found");
+            System.out.println("Locator can not be found");
             System.out.println(e.getMessage());
         }
     }
 
-    public void chooseTheme (By locator, int themeId) {
+    public void chooseImageAnswer (By locator, int themeId) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, 25);
             wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator)).get(themeId).click();
