@@ -1,6 +1,5 @@
 package selectors;
 
-import javafx.scene.control.Alert;
 import org.openqa.selenium.By;
 
 import java.lang.reflect.Array;
@@ -15,15 +14,8 @@ public class QuestionPage {
     public By imageAnswer = By.className("androidx.appcompat.app.ActionBar$Tab");
     public By trueAnswer = By.id("wta.com.picatrebax:id/trueAnswer");
     public By falseAnswer = By.id("wta.com.picatrebax:id/falseAnswer");
-    public By answerA = By.id("wta.com.picatrebax:id/answerA");
-    public By answer1 = By.id("wta.com.picatrebax:id/answer1");
-    public By answerB = By.id("wta.com.picatrebax:id/answerB");
-    public By answer2 = By.id("wta.com.picatrebax:id/answer2");
-    public By answerC = By.id("wta.com.picatrebax:id/answerC");
-    public By answer3 = By.id("wta.com.picatrebax:id/answer3");
-    public By answerD = By.id("wta.com.picatrebax:id/answerD");
-    public By answer4 = By.id("wta.com.picatrebax:id/answer4");
     public By checkButton = By.id("wta.com.picatrebax:id/answerButton");
+    public By checkBox = By.id("wta.com.picatrebax:id/checkBox");
     public By nextButton = By.xpath("//android.widget.Button[@text='NEXT']");
     public By tryAgainButton = By.id("wta.com.picatrebax:id/tryAgainButton");
     public By showHintButton = By.id("wta.com.picatrebax:id/hintButton");
@@ -39,8 +31,17 @@ public class QuestionPage {
     public By finallCoinsText = By.id("wta.com.picatrebax:id/coinsText");
     public By finallExpText = By.id("wta.com.picatrebax:id/expText");
 
-    public By[] rightAnswers = {
-                answerA, answerB, answerC, answerD, answer1, answer2, answer3, answer4
+    public String answerA = "\"wta.com.picatrebax:id/answerA\"";
+    public String answerB = "\"wta.com.picatrebax:id/answerB\"";
+    public String answerC = "\"wta.com.picatrebax:id/answerC\"";
+    public String answerD = "\"wta.com.picatrebax:id/answerD\"";
+    public String answer1 = "\"wta.com.picatrebax:id/answer1\"";
+    public String answer2 = "\"wta.com.picatrebax:id/answer2\"";
+    public String answer3 = "\"wta.com.picatrebax:id/answer3\"";
+    public String answer4 = "\"wta.com.picatrebax:id/answer4\"";
+
+    public String[] rightAnswers = {
+            answerA, answer1, answerB, answer2, answerC, answer3, answerD, answer4
     };
 
 }

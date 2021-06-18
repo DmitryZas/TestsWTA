@@ -5,15 +5,13 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -23,43 +21,41 @@ public class DriverFacade {
     public DriverFacade() {
         try {
             DesiredCapabilities caps = new DesiredCapabilities();
-            //Local device
+            //Real device
             caps.setCapability(MobileCapabilityType.DEVICE_NAME, "N0AA003761K70700091");
             caps.setCapability("appPackage", "wta.com.picatrebax");
             caps.setCapability("appWaitActivity", "wta.com.picatrebax.activity.AuthActivity");
             //caps.setCapability("noReset", "true");
-            caps.setCapability(MobileCapabilityType.APP, "/home/dmytro/Desktop/app-debug.apk");
-            //caps.setCapability("autoAcceptAlerts", true);
-            //caps.setCapability("autoGrantPermissions", "true");
+            caps.setCapability(MobileCapabilityType.APP, "/home/dmitry/Desktop/app-debug.apk");
+            caps.setCapability("autoAcceptAlerts", true);
+            caps.setCapability("autoGrantPermissions", "true");
 
-            //Browserstack
-            /*// Set your access credentials
+            //Initiate Driver for Real Devices
+            driver = new AndroidDriver<>(new URL("http://0.0.0.0:4723/wd/hub"), caps);
+
+            /*//Browserstack
             caps.setCapability("browserstack.user", "dimazasuha1");
             caps.setCapability("browserstack.key", "FjKjiV8QKrmHpjuxQVpG");
 
-            // Set URL of the application under test
-            caps.setCapability("app", "bs://b02755ccf4384499c8dd6a7471b24580d025af6f");
+            caps.setCapability("app", "bs://04ffa5ff78e83f3d793487893c3ead8531be3991");
             caps.setCapability("appWaitActivity", "wta.com.picatrebax.activity.AuthActivity");
-            caps.setCapability("noReset", "true");
+            caps.setCapability("noReset", "false");
 
-            // Specify device and os_version for testing
             caps.setCapability("device", "Samsung Galaxy S10e");
             caps.setCapability("os_version", "9.0");
 
-            // Set other BrowserStack capabilities
             caps.setCapability("project", "What The Art");
-            caps.setCapability("build", "0.97");
+            caps.setCapability("build", "1.0.6");
             caps.setCapability("name", "Positive scenario test");
 
-            // Set credentials for Google Authorization
             HashMap<String, String> passportsAndNames = new HashMap<>();
             passportsAndNames.put("username", "dmitry.zasuha@gmail.com");
-            passportsAndNames.put("password", "18111990");
-            caps.setCapability("browserstack.appStoreConfiguration", passportsAndNames);*/
+            passportsAndNames.put("password", "QWE123qwe@");
+            caps.setCapability("browserstack.appStoreConfiguration", passportsAndNames);
 
-            //Initiate Driver
-            //driver = new AndroidDriver<>(new URL("http://hub.browserstack.com/wd/hub"), caps);
-            driver = new AndroidDriver<>(new URL("http://0.0.0.0:4723/wd/hub"), caps);
+            //Initiate Driver for Browserstack
+            driver = new AndroidDriver<>(new URL("http://hub.browserstack.com/wd/hub"), caps);*/
+
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         } catch (MalformedURLException e) {
             System.out.println(e.getMessage());
@@ -77,6 +73,11 @@ public class DriverFacade {
             driver.quit();
         }
     }
+    public void chooseAnswer (String answerId) {
+        MobileElement element = driver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().scrollable(true))" + ".scrollIntoView(new UiSelector().clickable(true).resourceId(" + answerId + "))"));
+        element.click();
+    }
 
     public void tapNextTheoryButton() {
         MobileElement element = driver.findElement(MobileBy.AndroidUIAutomator(
@@ -85,10 +86,10 @@ public class DriverFacade {
         element.click();
     }
 
-    public void checkButton() {
+    public void tapCheckButton() {
         MobileElement element = driver.findElement(MobileBy.AndroidUIAutomator(
                 "new UiScrollable(new UiSelector().scrollable(true))" +
-                        ".scrollIntoView(new UiSelector().textContains(\"Check\"));"));
+                        ".scrollIntoView(new UiSelector().textContains(\"CHECK\"));"));
         element.click();
     }
 
@@ -96,10 +97,10 @@ public class DriverFacade {
         driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
     }
 
-    public WebElement waitForElement(AndroidElement locator) {
+    public WebElement waitForElement(By locator) {
         try {
             return new WebDriverWait(driver, 25)
-                    .until(ExpectedConditions.visibilityOf(locator));
+                    .until(ExpectedConditions.visibilityOf((WebElement) locator));
         } catch (Exception e) {
             System.out.println("Locator can not be found");
             throw new RuntimeException(e);
@@ -148,4 +149,20 @@ public class DriverFacade {
         WebDriverWait wait = new WebDriverWait(driver, 25);
         wait.until(ExpectedConditions.presenceOfElementLocated(locator)).click();
     }
+
+
+    public boolean isElementPresent(By locator) {
+        return driver.findElements(locator).size() != 0;
+    }
+
+    public WebElement findElement(By locator) {
+        WebElement element = driver.findElement(locator);
+        return element;
+    }
+
+/*    public void alert () {
+        Alert alert = (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.alertIsPresent());
+        driver.switchTo().alert().accept();
+    }*/
 }
