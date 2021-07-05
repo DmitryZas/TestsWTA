@@ -36,11 +36,11 @@ public class VenusCourseTests {
     }
 
     @Test
-    public void answersInVenusCourse() throws InterruptedException {
+    public void answersInVenusCourse(){
         driver.tapElement(auth.googleSignInButton);
-        /*if (driver.isElementPresent(auth.googleAccountButton)) {
+        if (driver.isElementPresent(auth.googleAccountButton)) {
             driver.tapElement(auth.googleAccountButton);
-        }*/
+        }
         driver.wait(2);
         driver.tapElement(auth.nextButtonTutorial);
         driver.tapElement(auth.skipButtonTutorial);
@@ -166,7 +166,7 @@ public class VenusCourseTests {
         //driver.getContext();
     }
 
-    //@After
+    @After
     public void end(){
         driver.StopDriver();
         }
