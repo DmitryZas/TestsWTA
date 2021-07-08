@@ -22,7 +22,7 @@ public class DriverFacade {
         try {
             DesiredCapabilities caps = new DesiredCapabilities();
             //Real device
-            /*caps.setCapability(MobileCapabilityType.DEVICE_NAME, "N0AA003761K70700091");
+            caps.setCapability(MobileCapabilityType.DEVICE_NAME, "N0AA003761K70700091");
             caps.setCapability("appPackage", "wta.com.picatrebax");
             caps.setCapability("appWaitActivity", "wta.com.picatrebax.activity.AuthActivity");
             //caps.setCapability("noReset", "true");
@@ -31,17 +31,18 @@ public class DriverFacade {
             caps.setCapability("autoGrantPermissions", true);
 
             //Initiate Driver for Real Devices
-            driver = new AndroidDriver<>(new URL("http://0.0.0.0:4723/wd/hub"), caps);*/
+            driver = new AndroidDriver<>(new URL("http://0.0.0.0:4723/wd/hub"), caps);
 
             //Browserstack
-            caps.setCapability("browserstack.user", "dimazasuha1");
+            /*caps.setCapability("browserstack.user", "dimazasuha1");
             caps.setCapability("browserstack.key", "FjKjiV8QKrmHpjuxQVpG");
-            caps.setCapability("fullReset", true);
-            caps.setCapability("autoAcceptAlerts", true);
-            caps.setCapability("autoGrantPermissions", true);
+            caps.setCapability("fullReset", "true");
+            caps.setCapability("autoAcceptAlerts", "true");
+            caps.setCapability("autoGrantPermissions", "true");
+            caps.setCapability("browserstack.debug", "true");
 
-            caps.setCapability("app", "bs://9aa94e839d4b5fb0a3580b5700317505872ebf54");
-            //caps.setCapability("appWaitActivity", "wta.com.picatrebax.activity.AuthActivity");
+            caps.setCapability("app", "bs://49b6edea69a1d25374ed3a9b1dd6da3bce8388c5");
+            caps.setCapability("appWaitActivity", "wta.com.picatrebax.activity.AuthActivity");
 
             caps.setCapability("device", "Samsung Galaxy S10e");
             caps.setCapability("os_version", "9.0");
@@ -56,7 +57,7 @@ public class DriverFacade {
             caps.setCapability("browserstack.appStoreConfiguration", passportsAndNames);
 
             //Initiate Driver for Browserstack
-            driver = new AndroidDriver<>(new URL("http://hub.browserstack.com/wd/hub"), caps);
+            driver = new AndroidDriver<>(new URL("http://hub.browserstack.com/wd/hub"), caps);*/
 
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         } catch (MalformedURLException e) {
@@ -122,7 +123,7 @@ public class DriverFacade {
     public void chooseElement (By locator, int themeId) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, 25);
-            wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator)).get(themeId).click();
+            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator)).get(themeId).click();
             System.out.println(locator);
         } catch (Exception e) {
             System.out.println("Locator can not be found");

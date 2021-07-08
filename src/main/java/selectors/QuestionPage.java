@@ -26,10 +26,13 @@ public class QuestionPage {
     public By navbarIcons = By.id("wta.com.picatrebax:id/imageView"); //Add index
     public By questionText = By.id("wta.com.picatrebax:id/questionText");
     public By theoryWebViewScreen = By.className("android.webkit.WebView");
-    public By course = By.className("android.widget.ImageView");
+    //public By course = By.className("android.widget.ImageView");
+    public By course = By.id("wta.com.picatrebax:id/nameTex");
     public By theme = By.id("wta.com.picatrebax:id/cardView");
     public By finallCoinsText = By.id("wta.com.picatrebax:id/coinsText");
     public By finallExpText = By.id("wta.com.picatrebax:id/expText");
+    public By myCourses = By.id("wta.com.picatrebax:id/home");
+    public By courseView = By.id("wta.com.picatrebax:id/courseWithProgressRowContainer");
 
     public String answerA = "\"wta.com.picatrebax:id/answerA\"";
     public String answerB = "\"wta.com.picatrebax:id/answerB\"";

@@ -2,9 +2,7 @@ import driver.DriverFacade;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.*;
 import org.testng.Assert;
 import selectors.AuthPage;
 import selectors.QuestionPage;
@@ -14,12 +12,15 @@ public class VenusCourseTests {
     private QuestionPage question;
     private AuthPage auth;
 
-    @Before
+    @BeforeMethod
     public void setup(){
         driver = new DriverFacade();
         question = new QuestionPage();
         auth = new AuthPage();
+    }
 
+    @Test (priority = 1)
+    public void firstThemeInVenusCourse(){
         //Delete user
         RestAssured.baseURI = "https://firestore.googleapis.com/v1/projects/what-tha-art/databases/(default)/documents/users/";
         RequestSpecification request = RestAssured.given();
@@ -33,19 +34,17 @@ public class VenusCourseTests {
 
         String jsonString =response.asString();
         Assert.assertTrue(jsonString.contains("{}"));
-    }
 
-    @Test
-    public void answersInVenusCourse(){
         driver.tapElement(auth.googleSignInButton);
         if (driver.isElementPresent(auth.googleAccountButton)) {
-            driver.tapElement(auth.googleAccountButton);
+            driver.chooseElement(auth.googleAccountButton, 1);
+            //driver.tapElement(auth.googleAccountButton);
         }
         driver.wait(2);
         driver.tapElement(auth.nextButtonTutorial);
         driver.tapElement(auth.skipButtonTutorial);
-        driver.wait(2);
-        driver.chooseElement(question.course, 5);
+        //driver.wait(5);
+        driver.chooseElement(question.course, 4);
         driver.wait(2);
         driver.tapElement(question.startCourseButton);
 
@@ -67,8 +66,22 @@ public class VenusCourseTests {
         driver.wait(2);
         driver.tapCheckButton();
         driver.wait(5);
-        driver.tapNextTheoryButton();
+        driver.tapElement(question.navbarNextButton);
+    }
 
+/*    @Test (priority = 2)
+    public void secondThemeInVenusCourse(){
+        driver.tapElement(auth.googleSignInButton);
+        if (driver.isElementPresent(auth.googleAccountButton)) {
+            driver.chooseElement(auth.googleAccountButton, 1);
+            //driver.tapElement(auth.googleAccountButton);
+        }
+        driver.wait(2);
+        driver.tapElement(auth.nextButtonTutorial);
+        driver.tapElement(auth.skipButtonTutorial);
+        driver.wait(2);
+        driver.tapElement(question.myCourses);
+        driver.tapElement(question.courseView);
         driver.wait(2);
         driver.chooseElement(question.theme, 1);
         driver.tapNextTheoryButton();
@@ -82,7 +95,21 @@ public class VenusCourseTests {
         driver.tapCheckButton();
         driver.wait(5);
         driver.tapNextTheoryButton();
+    }*/
 
+    @Test (priority = 3)
+    public void thirdThemeInVenusCourse(){
+        driver.tapElement(auth.googleSignInButton);
+        if (driver.isElementPresent(auth.googleAccountButton)) {
+            driver.chooseElement(auth.googleAccountButton, 1);
+            //driver.tapElement(auth.googleAccountButton);
+        }
+        driver.wait(2);
+        driver.tapElement(auth.nextButtonTutorial);
+        driver.tapElement(auth.skipButtonTutorial);
+        driver.wait(2);
+        driver.tapElement(question.myCourses);
+        driver.tapElement(question.courseView);
         driver.wait(2);
         driver.chooseElement(question.theme, 2);
         driver.tapNextTheoryButton();
@@ -102,9 +129,25 @@ public class VenusCourseTests {
         }
         driver.tapCheckButton();
         driver.tapElement(question.nextButton);
+        driver.wait(2);
         driver.tapElement(question.nextButton);
-        //driver.tapNextTheoryButton();
+        driver.tapNextTheoryButton();
+    }
 
+    /*@Test (priority = 4)
+    public void fourthThemeInVenusCourse(){
+        driver.tapElement(auth.googleSignInButton);
+        if (driver.isElementPresent(auth.googleAccountButton)) {
+            driver.chooseElement(auth.googleAccountButton, 1);
+            //driver.tapElement(auth.googleAccountButton);
+        }
+        driver.wait(2);
+        driver.tapElement(auth.nextButtonTutorial);
+        driver.tapElement(auth.skipButtonTutorial);
+        driver.wait(2);
+        driver.tapElement(question.myCourses);
+        driver.tapElement(question.courseView);
+        driver.wait(2);
         driver.chooseElement(question.theme, 3);
         driver.wait(2);
         driver.tapNextTheoryButton();
@@ -136,7 +179,22 @@ public class VenusCourseTests {
         driver.tapCheckButton();
         //driver.wait(5);
         driver.tapElement(question.navbarNextButton);
+        driver.tapNextTheoryButton();
+    }
 
+    @Test (priority = 5)
+    public void fifthThemeInVenusCourse(){
+        driver.tapElement(auth.googleSignInButton);
+        if (driver.isElementPresent(auth.googleAccountButton)) {
+            driver.chooseElement(auth.googleAccountButton, 1);
+            //driver.tapElement(auth.googleAccountButton);
+        }
+        driver.wait(2);
+        driver.tapElement(auth.nextButtonTutorial);
+        driver.tapElement(auth.skipButtonTutorial);
+        driver.wait(2);
+        driver.tapElement(question.myCourses);
+        driver.tapElement(question.courseView);
         driver.wait(2);
         driver.chooseElement(question.theme, 4);
         driver.tapNextTheoryButton();
@@ -152,21 +210,11 @@ public class VenusCourseTests {
         driver.tapNextTheoryButton();
         driver.tapElement(question.falseAnswer);
         driver.tapElement(question.navbarNextButton);
+        driver.tapNextTheoryButton();
+    }*/
 
 
-
-
-
-
-
-
-
-
-        //driver.tapElement(question.tryAgainButton);
-        //driver.getContext();
-    }
-
-    @After
+    @AfterMethod
     public void end(){
         driver.StopDriver();
         }
